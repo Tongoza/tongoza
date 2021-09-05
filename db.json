@@ -1,0 +1,169 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "493jtpjfrntlinnfji8gg1e29n9ypaa4",
+  "fields": {
+    "session_data": "e30:1mFhac:bXenUbVGrdFNTqUIoCuK9gJ2fL59QQyX4GdmPVDuHQQ",
+    "expire_date": "2021-08-30T18:44:02.806Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "64e0pg1lmm5bu55aeesnv8hxhjoifuyr",
+  "fields": {
+    "session_data": "e30:1mFhZ8:Ea9Jc_H5dJWtOfbT-GIzBOFPRlmJLbXWbUgvjZqUWhs",
+    "expire_date": "2021-08-30T18:42:30.721Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zfb2zbm6j7ekqyj135t8oe4zua52vjej",
+  "fields": {
+    "session_data": ".eJxVjMsKwjAUBf8lawk3tKRpl-79hnBftVFJpGlBEf9dC13o9syceZmI6zLFteock5jBOHP43Qj5qnkDcsF8LpZLXuZEdlPsTqs9FdHbcXf_AhPW6fvmoNByQD-CkKr20jB1xOhawBA4eEHt_CiEPctIgt4BELiu9x6w2aJVa00lR33c0_w0A7w_9dBArw:1mFhtx:uQJmgG7H6CoLq0_cgRw2deTNZyRDUhyDRJdLQMeJrW0",
+    "expire_date": "2021-08-30T19:04:01.878Z"
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$4La7jV82SpKosm5b01Nlot$s5iSJ6VUqYYW4ArvhQjtmCX3nUSicf0xMg2XAQzw/3o=",
+    "last_login": "2021-08-16T21:48:27.731Z",
+    "is_superuser": true,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-08-16T14:57:59.598Z",
+    "username": "Dogechi",
+    "email": "danielmakori0@gmail.com",
+    "hide_email": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$FN9YfYkS0TXr5hTXnmrK1X$NMgKd4CydHAFKDegE391mqzWnGLddtVTT3IdMuhLiuw=",
+    "last_login": "2021-08-16T18:51:08.564Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-08-16T18:51:08.201Z",
+    "username": "dmakori28@gmail.com",
+    "email": "dmakori28@gmail.com",
+    "hide_email": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "kutuhome.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "slug": "dogechi",
+    "aboutMe": "How can we do this here...am not seeing good edits",
+    "country": "KE",
+    "city": "Nairobi",
+    "dob": "1998-08-18",
+    "is_active": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "email": "dmakori28@gmail.com",
+    "verified": false,
+    "primary": true
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2021-08-16T17:07:38.454Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Dogechi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2021-08-16T17:08:12.210Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "Dogechi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2021-08-16T18:39:33.836Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "dmakori",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2021-08-16T18:46:41.579Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "3",
+    "object_repr": "dmax",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2021-08-16T18:50:34.478Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "4",
+    "object_repr": "dmaz",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "kutuhome.profileimage",
+  "pk": 1,
+  "fields": {
+    "profile": 1,
+    "in_display": true,
+    "image": "images/profile_images/alexi-romano-1fb6ubsKS0w-unsplash_fEhAvbA.jpg"
+  }
+}
+]

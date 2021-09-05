@@ -1,0 +1,70 @@
+{% extends 'tongozahome/base.html' %}
+{% load static %}
+
+{% block site_wrapper %}
+<main>
+    <div class="container-fluid tm-container-content tm-mt-60">
+        <div class="row mb-4">
+            <h2 class="col-6 tm-text-primary">
+                {% if is_self %}
+                Your Buddies({{ friends|length }})
+                {% else %}
+                {{ viewed_profile|capfirst }}'s Friends({{ friends|length }})
+                {% endif %}
+            </h2>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <form action="" class="tm-text-primary">
+                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
+                </form>
+            </div>
+        </div>
+
+        <div class="row tm-mb-90 tm-gallery">
+            {% for profile in profiles %}
+        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                {% if profile.profileimage_set.all %}
+                {% for image in profile.profileimage_set.all %}
+                {% if image.in_display %}
+                <figure class="effect-ming tm-video-item">
+                    <img src="{{ image.image.medium.url }}" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>{{ profile.user }}</h2>
+                        <a href="{{ profile.get_absolute_url }}">View more</a>
+                    </figcaption>
+                </figure>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <div class="d-flex justify-content-between tm-text-gray">
+                    {% if profile.country %}
+                        <span class="tm-text-gray-light">{{profile.city}}</span>
+                        <span>{{ profile.get_country_display }}</span>
+                    {% endif %}
+
+                    {% if profile.user == viewer %}
+                        <button href="" class="disabled btn btn-sm btn-default" style="background-color:#009999">You</button>
+                    {% endif %}
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div> <!-- row -->
+        <div class="row tm-mb-90">
+            <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+                <div class="tm-paging d-flex">
+                    <a href="javascript:void(0);" class="active tm-paging-link">1</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">2</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">3</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">4</a>
+                </div>
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
+            </div>
+        </div>
+    </div> <!-- container-fluid, tm-container-content -->
+</main>
+
+{% endblock site_wrapper %}
+

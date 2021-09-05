@@ -1,0 +1,31 @@
+<script type="text/javascript">
+  function declineFriendRequest(friend_request_id, uiUpdateFunction){
+    var url = "{% url 'friend:decline_friend_request' friend_request_id=54545454 %}".replace("54545454",
+            friend_request_id)
+
+    $.ajax({
+      type:"GET",
+      dataType:"json",
+      url:url,
+      timeout: 5000,
+      success: function(data){
+        if(data.response === data.message ){
+
+        }
+        else if(data.response != null){
+          alert(data.response)
+        }
+
+      },
+      error: function(data){
+          alert("something went wrong" )
+      },
+      complete: function (data){
+        uiUpdateFunction()
+      },
+
+
+    })
+
+  }
+</script>

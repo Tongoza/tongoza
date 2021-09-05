@@ -1,0 +1,135 @@
+{% block headblock %}
+<style type="text/css">
+
+        .quote-card {
+          background: #fff;
+          color: #222222;
+          padding: 20px;
+          padding-left: 50px;
+          box-sizing: border-box;
+          box-shadow: 0 2px 4px rgba(34, 34, 34, 0.12);
+          position: relative;
+          overflow: hidden;
+          min-height: 120px;
+        }
+        .quote-card p {
+          font-size: 22px;
+          line-height: 1.5;
+          margin: 0;
+          max-width: 80%;
+        }
+        .quote-card cite {
+          font-size: 16px;
+          margin-top: 10px;
+          display: block;
+          font-weight: 200;
+          opacity: 0.8;
+        }
+        .quote-card:before {
+          font-family: Georgia, serif;
+          content: "“";
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          font-size: 5em;
+          color: rgba(238, 238, 238, 0.8);
+          font-weight: normal;
+        }
+        .quote-card:after {
+          font-family: Georgia, serif;
+          content: "”";
+          position: absolute;
+          bottom: -110px;
+          line-height: 100px;
+          right: -32px;
+          font-size: 25em;
+          color: rgba(238, 238, 238, 0.8);
+          font-weight: normal;
+        }
+        @media (max-width: 640px) {
+            .quote-card:after {
+                font-size: 22em;
+                right: -25px;
+            }
+        }
+        .quote-card.green-card {
+          background: #00970B;
+          color: #ffffff;
+          box-shadow: 0 1px 2px rgba(34, 34, 34, 0.12), 0 2px 4px rgba(34, 34, 34, 0.24);
+        }
+        .quote-card.green-card:before, .quote-card.green-card:after {
+          color:#59E063 ;
+        }
+
+    </style>
+{% endblock %}
+<footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+      <div class="container-fluid tm-container-small">
+          <div class="row">
+              <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
+                  <h3 class="tm-text-primary mb-4 tm-footer-title">Tongoza | Lead</h3>
+                  <p>
+                    <a href="https://www.wordhippo.com/what-is/dynamic-translation/912f50fc2ba58ab289d3b8a43813958d13a30b6d.html" target="_blank">Tongoza</a> | Lead, is a social leadership platform where users can share moments. We call it a Buddy system
+                    where you and I, can become Buddies.
+                      <br>
+                      <br>
+                      At Tongoza, We aim to Inspire and motivate. Our objective upon visiting the site is for us to leave you more motivated, energized and ready to live up to your potential.
+                      We also give you the ability to engage and hangout with Your Buddies, people you look up to and those you've always wanted to meet.
+                      <br>
+                      <br>
+                      The platform Was inspired by the <a href="https://www.peerpioneers.com/" target="_blank">Equity Mentorship Program</a> who have recently introduced a buddy system to help incoming college students to be college ready
+                      and learn how to face the challenges of their next phase of life.
+
+                      {% if not request.user.is_authenticated %}
+                      <br>
+                      Have something to share? <a href="{% url 'account_signup' %}"> Sign up </a> | <a href="{% url 'account_login' %}"> Login </a> to share moments
+                      {% endif %}
+                      <br>
+                      The Buddy system now encourages all of us to be leaders. Learn from Your Buddies, Utilize our A1000 questions tab.
+
+                      <p>
+                          <blockquote class="quote-card green-card">
+                            <p style="color: white">
+                              Show me your Buddies and I will tell you where you are going...
+                            </p>
+
+                            <cite>
+                              Daniel Ogechi
+                            </cite>
+                          </blockquote>
+                        </p>
+
+                  </p>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                  <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+                  <ul class="tm-footer-links pl-0">
+
+                    <li><a href="http://www.me2uafrika.com" target="_blank">Me2U|Afrika</a></li>
+                    <li><a href="http://www.me2uafrika.com" target="_blank">Advertise</a></li>
+                    <li><a href="http://www.me2uafrika.com" target="_blank">Support</a></li>
+                    <li><a href="http://www.me2uafrika.com" target="_blank">Our Companies</a></li>
+                    <li><a href="http://www.me2uafrika.com/main/contact-us/" target="_blank">Contact</a></li>
+
+                  </ul>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                  <ul class="tm-social-links d-flex justify-content-end pl-0 mb-5">
+                      <li class="mb-2"><a href="https://facebook.com/Me2UAfrika" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                      <li class="mb-2"><a href="https://twitter.com/me2uafrika" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                      <li class="mb-2"><a href="https://instagram.com//me2u_afrika/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                      <li class="mb-2"><a href="https://pinterest.com/me2uafrika/" target="_blank"><i class="fab fa-pinterest"></i></a></li>
+                  </ul>
+                  <a href="#" class="tm-text-gray text-right d-block mb-2">Terms of Use</a>
+                  <a href="#" class="tm-text-gray text-right d-block">Privacy Policy</a>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
+                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="http://www.tongoza.com" target="_blank"> Tongoza</a>. Powered by <a href="http://www.me2uafrika.com" target="_blank">Me2U|Afrika</a><div class="col-lg-4 col-md-5 col-12 px-5 text-right">
+
+              </div>
+              </div>
+          </div>
+      </div>
+  </footer>

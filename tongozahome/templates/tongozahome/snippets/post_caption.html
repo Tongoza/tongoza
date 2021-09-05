@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <a href="{{ object.author.get_absolute_url }}"><h3 class="mb-0">{{object.title}}</h3></a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+        <hr class="my-4">
+        <p>{{ object.caption }}</p>
+    </div>
+</div>

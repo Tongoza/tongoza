@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html PUBLIC "_//W3C//DTD XHTML+RDFa 1.0//EN"
+        "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tongoza</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N2C89G38SJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N2C89G38SJ');
+    </script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
+
+
+    <!-- extra head styles -->
+    {% block headblock %}
+
+    {% endblock headblock %}
+    <!-- extra head styles -->
+
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+   <div class="pt-0 ms">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} " role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% block navbar %}
+      {% include 'tongozahome/snippets/navbar.html' %}
+    {% endblock %}
+
+    {% block search %}
+        <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{% static 'img/potential1.jpg' %}">
+            <form class="d-flex tm-search-form" onsubmit="executeQuery();">
+                <input class="form-control tm-search-input" type="search" name="q" placeholder="Search for Buddies" aria-label="Search" id="id_q">
+                <button class="btn btn-outline-success tm-search-btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    {% endblock %}
+
+    <!-- site wrapper-->
+    {% block site_wrapper %}
+
+    {% endblock %}
+    <!-- site wrapper-->
+
+    {% block footer %}
+       {% include 'tongozahome/snippets/footer.html' %}
+    {% endblock %}
+
+    <script src="{% static 'js/plugins.js' %}"></script>
+
+    <script>
+        $(window).on("load", function() {
+            $('body').addClass('loaded');
+        });
+    </script>
+
+    <script type="text/javascript">
+        function executeQuery(){
+            var query = document.getElementById("id_q").value;
+
+            window.location.replace("{% url 'tongozahome:search' %}?q=" + query);
+
+        }
+    </script>
+
+        <script type="text/javascript">
+
+        // called from base_js.html
+
+        function onFriendRemoved(){
+            location.reload();
+        }
+
+        function onFriendRequestAccepted(){
+            location.reload();
+        }
+
+        function onFriendRequestDeclined(){
+            location.reload();
+        }
+
+
+        function triggerAcceptFriendRequest(friend_request_id){
+            acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+        }
+
+        function triggerDeclineFriendRequest(friend_request_id){
+            declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+        }
+
+    </script>
+    <script type="text/javascript">
+        $('.alert').alert()
+        $(".alert").alert('close')
+    </script>
+
+    {% include 'friend/snippets/accept_friend_request.html' %}
+    {% include 'friend/snippets/decline_friend_request.html' %}
+
+    {#% include 'chat/create_or_return_private_chat.html' %#}
+
+    <!-- extra scritpts-->
+    {% block extra_scripts %}
+
+    {% endblock extra_scripts %}
+    <!-- extra scritpts-->
+
+
+</body>
+
+</html>

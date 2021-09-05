@@ -1,0 +1,64 @@
+{% load static %}
+{% load notification_tags %}
+ <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+            {% include 'tongozahome/snippets/logo.html' %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link nav-link-1 active" aria-current="page" href="{% url 'tongozahome:home' %}">Posts</a>
+            </li>
+<!--              <li class="disabled nav-item">-->
+<!--                <a class="nav-link nav-link-1 active" aria-current="page" href="#">Videos</a>-->
+<!--            </li>-->
+               {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    {% if request|friend_request_count %}
+                    <a class="nav-link nav-link-3" href="{% url 'friend:view_requests' user_profile.slug %}"><span class="material-icons" style="color: #A1030F">
+                    person_add</span>
+                    <span style="color: #00970B">{{ request|friend_request_count }}</span></a>
+                    {% else %}
+                     <a class="nav-link nav-link-3" href="{% url 'friend:view_requests' user_profile.slug %}"><span class="material-icons">
+                    person_add</span></a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="disabled nav-link nav-link-3" href="#"><span class="material-icons">chat</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="disabled nav-link nav-link-2" href="#"><span class="material-icons">notifications</span></a>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group dropleft">
+                        <img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links"
+                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="object-fit: cover"
+                             src="{% if not user_profile.get_profile_pic %} {% static 'img/dummy_image.png'%} {% else %}
+                             {{ user_profile.get_profile_pic.image.thumbnail.url }} {% endif %}" alt="{{request.user.username}}" width="40" height="40">
+                        <div class="dropdown-menu" aria-labelledby="id_profile_links">
+                            {% if user_profile.slug %}
+                            <a class="dropdown-item" href="{% url 'users:profile_update' user_profile.slug %}">My Account</a>
+                            <a class="dropdown-item" href="{{ user_profile.get_absolute_url}}">My Profile</a>
+                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                        </div>
+                    </div>
+                </li>
+
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="{% url 'account_signup' %}?next={{ request.path }}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-5" href="{% url 'account_login' %}?next={{ request.path }}">Sign In</a>
+                </li>
+                {% endif %}
+
+
+        </ul>
+        </div>
+    </div>
+</nav>
+

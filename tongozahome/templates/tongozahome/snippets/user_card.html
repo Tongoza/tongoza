@@ -1,0 +1,205 @@
+{% load static %}
+{% block headblock %}
+
+{% endblock %}
+<div class="card card-profile shadow">
+    <div class="row justify-content-center">
+      <div class="col-lg-3 order-lg-2" >
+        <div class="card-profile-image">
+          <a href="{{ object.author.get_absolute_url }}">
+            <img src="{% if not object.get_profile_pic %} {% static 'img/dummy_image.png'%} {% else %}{{ object.get_profile_pic.image.thumbnail.url }} {% endif %}" class="rounded-circle" width="160" height="160" style="object-fit:cover">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+      <div class="row">
+        <div class="d-flex justify-content-between">
+            {% if is_self %}
+              <a href="{% url 'users:profile_update' object.slug %}" class="btn btn-sm btn-info mr-4">My Account</a>
+              <a href="{% url 'tongozahome:profile_images' object.slug %}" class="btn btn-sm btn-secondary float-right">Update Photos</a>
+            {% else %}
+                {% if not is_friend %}
+                    {% if request_sent == -1 %}
+                        {% if user_profile.get_profile_pic and user_profile.gender %}
+                          <a href="#" class="btn btn-sm btn-info mr-4" id="id_send_friend_request_btn">Connect</a>
+                        {% else %}
+                        <a href="#" class="btn btn-sm btn-info no-match mr-4">Connect</a>
+                        {% endif %}
+                      <!--No request sent-->
+                    {% endif %}
+                    {% if request_sent == 1 %}
+                      <!--You sent them a friend request-->
+                      <a href="#" class="btn btn-sm btn-info mr-4" id="id_cancel_friend_request_btn" style="background-color: #A1030F">Cancel Request</a>
+                    {% endif %}
+                {% else %}
+                <!--Is already your friend-->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-info mr-4 dropdown-toggle friends-btn" type="button" id="id_friends_toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #198754">
+                    Your Buddy
+                    </button>
+                    <div class="dropdown-menu btn-sm" aria-labelledby="id_friends_toggle">
+                        <a href="#" class="btn btn-sm btn-info mr-4" id="id_unfriend_btn" style="background-color: #A1030F">UnBuddy</a>
+                    </div>
+                  </div>
+              {% endif %}
+             {% if request_sent == 0 %}
+                     {% if user_profile.get_profile_pic and user_profile.gender %}
+                        <a id="id_confirm_{{ object.user.id }}" href="#" class="btn btn-sm btn-info mr-4" onclick='triggerAcceptFriendRequest("{{pending_friend_request_id}}")' style="background-color: #198754">Accept Request</a>
+                        <a id="id_cancel_{{ object.user.id }}" href="#" class="btn btn-sm btn-info mr-4" onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")' style="background-color: #A1030F">Decline</a>
+
+                    {% else %}
+                        <a href="#" class="btn btn-sm btn-info mr-4 no-accept"  style="background-color: #198754">Accept Request</a>
+                        <a href="#" class="btn btn-sm btn-info mr-4 no-accept"  style="background-color: #A1030F">Decline</a>
+                    {% endif %}
+                {% else %}
+                    <a href="#" class="btn btn-sm btn-secondary float-right">Hangout</a>
+                {% endif %}
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0 pt-md-4">
+      <div class="row">
+        {% if is_friend or is_self %}
+            {% if object.user.phone and object.user.allow_direct_calls %}
+                <div class="col-xl-12" style="margin: auto">
+                    <div class="d-flex flex-row justify-content-center m-2 px-4 mt-md-4" onclick="createOrReturnPrivateChat('{{id}}')">
+                        <a class="btn btn-primary" href='tel:{{object.user.phone}}'>
+
+                            <span class="message-btn-text m-auto pl-2"><i class="fa fa-phone"></i> Call Me</span>
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+            <div class="col-xl-12" style="margin: auto">
+                <div class="d-flex flex-row justify-content-center m-2 px-4 mt-md-4" onclick="createOrReturnPrivateChat('{{id}}')">
+                    <a class="disabled btn btn-primary" href='tel:{{object.user.phone}}'>
+                        <span class="message-btn-text m-auto pl-2"> <i class="fa fa-phone"></i> Call Me</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+             <div class="col-xl-12">
+                     <div class="d-flex flex-row justify-content-between m-2 px-4 mt-md-4" style="margin: auto">
+                       <ul class="social-network social-circle">
+
+                        {% if object.whatsapp_phone_number %}
+                            <li><a target="_blank" href="https://wa.me/{{object.whatsapp_phone_number}}?text=Hello! It's {{object.user.username|capfirst}} from Tongaza. Glad we're friends" class="icoWhatsapp" title="Whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+                        {% endif %}
+                        {% if object.telegram_username %}
+                           <li><a target="_blank" href="https://telegram.me/{{ object.telegram_username }}" class="icoTelegram" title="Telegram"><i class="fa fa-telegram"></i></a></li>
+                        {% endif %}
+                        {% if object.snapchat_username %}
+                           <li><a target="_blank" href="https://msng.link/o/?{{object.snapchat_username}}=sc" class="icoSnapchat" title="Snapchat"><i class="fa fa-snapchat-ghost"></i></a></li>
+                        {% endif %}
+                        {% if object.messenger %}
+                            <li><a target="_blank" href="https://www.messenger.com/t/{{ object.messenger }}" class="icoMessenger" title="Messenger"><i class="fab fa-facebook-messenger"></i></a></li>
+                        {% endif %}
+
+                       </ul>
+
+                     </div>
+                </div>
+        {% endif %}
+        {% if is_self and friend_requests %}
+        <div class="col-xl-8" style="margin: auto">
+           <div class="d-flex flex-column align-items-center m-2 px-4 mt-md-2">
+                <a href="{% url 'friend:view_requests' object.slug %}" class="d-flex flex-row align-items-center btn btn-primary m-2 px-4 mt-md-4"><span class="material-icons mr-2 person-add-icon">person_add</span>Friend Requests({{friend_requests|length}})</a>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="col">
+          <div class="card-profile-stats d-flex justify-content-center mt-md-2">
+            <div>
+                {% if is_friend or is_self %}
+                    <a href="{% url 'friend:view_friends' object.slug %}">
+                {% endif %}
+                  <span class="heading">{{ friends|length }}</span>
+                  <span class="description"><span class="material-icons mr-2">
+                  people
+                  </span>Buddies</span>
+                </a>
+            </div>
+            <div>
+                {% if is_self %}
+                    <a href="{% url 'tongozahome:profile_images' object.slug %}">
+                {% endif %}
+                    <span class="heading">{{ object.profileimage_set.all|length }}</span>
+
+                    <span class="description"><span class="material-icons mr-2">
+                    collections
+                    </span>Photos</span>
+                </a>
+              </div>
+<!--            <div>-->
+<!--              <span class="heading">89</span>-->
+<!--              <span class="description"><span class="material-icons mr-2">-->
+<!--              comment-->
+<!--              </span>Comments</span>-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        {% if object.user.dob %}
+        <h3>
+            {{ object.user.username|capfirst }}<span class="font-weight-light">, {{ object.user.calculate_age }} </span>
+        </h3>
+        {% else %}
+         <h3>
+            {{ object.user.username|capfirst }}
+        </h3>
+        {% endif %}
+
+        {% if object.country %}
+        <div class="h5 font-weight-300">
+          <i class="ni location_pin mr-2"></i>{{ object.country }}, {{ object.city }}
+        </div>
+        {% endif %}
+        <div class="h5 font-weight-300">
+          {% if object.gender %}
+            {% if gender == 'F' %}
+            <span class="material-icons">female</span>
+            {% else %}
+            <span class="material-icons">male</span>
+            {% endif %}
+          {% else %}
+          <span class="material-icons">transgender</span>
+          {% endif %}
+
+        </div>
+        <div class="h5 ni education_hat mr-2">
+          Last login - {{ object.user.last_login.date }}
+        </div>
+          {% if object.company and object.role %}
+            <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>{{object.role}} - {{object.company}}
+                </div>
+          {% endif %}
+
+          {% if object.education_institution and object.course %}
+          <div>
+            <i class="ni education_hat mr-2"></i> {{ object.education_institution }} - {{ object.course }}
+          </div>
+          {% endif %}
+
+        <hr class="my-4">
+        <p>{{object.aboutMe|safe}}</p>
+      </div>
+    </div>
+  </div>
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.no-match').click(function() {
+       alert("Update your Profile picture and your Account information to send a Buddy request")
+      });
+      $('.no-accept').click(function() {
+       alert("Update your Profile picture and your Account information to accept/decline a Buddy request")
+      });
+    });
+</script>
+{% endblock %}
