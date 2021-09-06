@@ -354,5 +354,5 @@ except ImportError:
 
 django_heroku.settings(locals())
 
-# if not DEBUG:
-#     del DATABASES['default']['OPTIONS']['sslmode']
+if not DEBUG:
+    del DATABASES['default']['OPTIONS']['sslmode']
