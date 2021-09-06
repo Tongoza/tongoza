@@ -166,7 +166,7 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'tongozana',
+            'NAME': 'tongoza',
             'USER': os.environ.get('USER'),
             'PASSWORD': os.environ.get('PASSWORD'),
             'HOST': 'localhost',
@@ -181,10 +181,10 @@ if not DEBUG:
 
 # DISABLE_SERVER_SIDE_CURSORS = True  # required when using pgbouncer's pool_mode=transaction
 
-SITE_NAME = 'Ongoza'
+SITE_NAME = 'Tongoza'
 META_KEYWORDS = 'Social Media, Therapy site, Buddy System, Moments Sharing'
-META_DESCRIPTION = 'Ongoza is a leadership social platform where users can share moments. We call it ' \
-                   'a Buddy system where you and I can become Buddies and Accountability Partners.'
+META_DESCRIPTION = 'Tongoza is a leadership social platform where users can share moments. We call it ' \
+                   'a Buddy system where you and I can become Buddies with the aim of uplifting one another.'
 
 
 CHANNEL_LAYERS = {
@@ -354,5 +354,5 @@ except ImportError:
 
 django_heroku.settings(locals())
 
-if not DEBUG:
-    del DATABASES['default']['OPTIONS']['sslmode']
+# if not DEBUG:
+#     del DATABASES['default']['OPTIONS']['sslmode']

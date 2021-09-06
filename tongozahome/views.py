@@ -189,10 +189,9 @@ def likeView(request, slug):
     return HttpResponseRedirect(reverse('blog:postView', args=[str(slug)]))
 
 
-class PostDetailedView(DetailView):
+class PostDetailedView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'tongozahome/postdetail.html'
-    # template_name = 'blog/blog_single_test.html'
     query_pk_and_slug = False
 
     def get_context_data(self, **kwargs):
@@ -200,11 +199,11 @@ class PostDetailedView(DetailView):
 
         post = get_object_or_404(Post, slug=self.kwargs['slug'])
 
-        public_posts = get_public_posts().exclude(id=post.id)
-        print('public posts', public_posts)
-        context['public_posts'] = public_posts
-        all_posts = get_all_posts()
-        context['all_posts'] = all_posts
+        # print("none?", public_posts)
+        # print('public posts', public_posts)
+        # context['public_posts'] = public_posts
+        # all_posts = get_all_posts()
+        # context['all_posts'] = all_posts
 
         liked = False
         if post.likes.filter(id=self.request.user.id).exists():
