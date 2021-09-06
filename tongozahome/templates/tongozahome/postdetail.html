@@ -1289,18 +1289,20 @@ a.socialIcon:hover,
         </div>
 
         <div class="row mb-4">
-           {% if not is_self %}
+           {% if not is_self and object.get_user_other_public_posts %}
             <h4 class="disabled col-12 tm-text-primary btn btn-sm btn-secondary float-right">
                 More Posts From {{object.author|capfirst}}
             </h4>
             {% else %}
-            <a href="{% url 'tongozahome:profile_images' object.slug %}" class="btn btn-sm btn-secondary float-right">Update Posts</a>
+                {% if is_self %}
+                    <a href="{% url 'tongozahome:profile_images' object.slug %}" class="btn btn-sm btn-secondary float-right">Update Posts</a>
+                {% endif %}
             {% endif %}
         </div>
 
         <div class="row mb-3 tm-gallery">
             {% if is_friend or is_self %}
-                {% for post in all_posts %}
+                {% for post in object.get_user_all_other_posts %}
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                     <figure class="effect-ming tm-video-item">
                         <div class="gallery">
@@ -1314,7 +1316,7 @@ a.socialIcon:hover,
                 </div>
                 {% endfor %}
             {% else %}
-               {% for post in public_posts %}
+               {% for post in object.get_user_other_public_posts %}
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                     <figure class="effect-ming tm-video-item">
                         <div class="gallery">

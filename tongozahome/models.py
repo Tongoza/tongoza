@@ -103,6 +103,14 @@ class Profile(AbstractProfile):
         images = self.profileimage_set.filter(in_display=False, dark_mode_pic=False)
         return images
 
+    def get_user_public_posts(self):
+        posts = self.post_set.filter(active=True, public=True)
+        return posts
+
+    def get_user_all_posts(self):
+        posts = self.post_set.filter(active=True)
+        return posts
+
     def _generate_slug(self):
         value = self.user.username
         slug_original = slugify(value, allow_unicode=True)
@@ -196,6 +204,14 @@ class Post(CreationModificationDateMixin):
 
     def get_total_likes(self):
         return self.likes.count()
+
+    def get_user_all_other_posts(self):
+        posts = Post.objects.filter(active=True).exclude(id=self.id)
+        return posts
+
+    def get_user_other_public_posts(self):
+        posts = Post.objects.filter(active=True, public=True).exclude(id=self.id)
+        return posts
 
     def cross_reads(self):
         # orders = Order.objects.filter(items__item=self)
